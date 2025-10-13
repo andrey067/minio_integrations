@@ -1,0 +1,27 @@
+@MinioDotnet_HostAddress = http://localhost:5035
+
+### Criar um Bucket
+POST {{MinioDotnet_HostAddress}}/create-bucket
+Content-Type: application/json
+
+"meu-bucket"
+
+### Listar Buckets
+GET {{MinioDotnet_HostAddress}}/list-buckets
+
+### Deletar um Bucket
+DELETE {{MinioDotnet_HostAddress}}/delete-bucket/meu-bucket
+
+### Upload de Arquivo
+POST {{MinioDotnet_HostAddress}}/upload?bucketName=meu-bucket
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+
+------WebKitFormBoundary
+Content-Disposition: form-data; name="file"; filename="teste.txt"
+Content-Type: text/plain
+
+(Conteúdo do arquivo aqui)
+------WebKitFormBoundary--
+
+### Download de Arquivo
+GET {{MinioDotnet_HostAddress}}/download/meu-bucket/teste.txt
