@@ -8,8 +8,8 @@ public class MinioServices : IMinioServices
 {
     private readonly IMinioClient _minio;
 
-    public MinioServices(IMinioClient minio)
-    => _minio = minio ?? throw new ArgumentNullException(nameof(_minio));
+    public MinioServices(IMinioClient minio) =>
+        _minio = minio ?? throw new ArgumentNullException(nameof(_minio));
 
     public async Task CreateBucket(string bucketName)
     {
@@ -56,15 +56,21 @@ public class MinioServices : IMinioServices
         }
     }
 
-    public async Task UploadFileAsync(string bucketName, string objectName, Stream fileStream, string contentType)
+    public async Task UploadFileAsync(
+        string bucketName,
+        string objectName,
+        Stream fileStream,
+        string contentType
+    )
     {
         try
         {
-            var args = new PutObjectArgs().WithBucket(bucketName)
-                                                      .WithObject(objectName)
-                                                      .WithStreamData(fileStream)
-                                                      .WithObjectSize(fileStream.Length)
-                                                      .WithContentType(contentType);
+            var args = new PutObjectArgs()
+                .WithBucket(bucketName)
+                .WithObject(objectName)
+                .WithStreamData(fileStream)
+                .WithObjectSize(fileStream.Length)
+                .WithContentType(contentType);
 
             await _minio.PutObjectAsync(args);
         }

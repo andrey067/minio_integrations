@@ -8,6 +8,11 @@ public interface IMinioServices
     Task<List<string>> ListBuckets();
     Task<bool> BucketExists(string bucketName);
     Task DeleteBucket(string bucketName);
-    Task UploadFileAsync(string bucketName, string objectName, Stream fileStream, string contentType);
+    Task UploadFileAsync(
+        string bucketName,
+        string objectName,
+        Stream fileStream,
+        string contentType
+    );
     Task<Stream> DownloadFileAsync(string bucketName, string objectName);
 }
