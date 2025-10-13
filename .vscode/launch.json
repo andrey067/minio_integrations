@@ -1,0 +1,68 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch MinioDotnet (Development)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/MinioDotnet/bin/Debug/net9.0/MinioDotnet.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/MinioDotnet",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+                "uriFormat": "%s/swagger"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:5000;https://localhost:5001"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            "name": "Launch MinioDotnet (Production)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-release",
+            "program": "${workspaceFolder}/src/MinioDotnet/bin/Release/net9.0/MinioDotnet.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/MinioDotnet",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+                "uriFormat": "%s/swagger"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Production",
+                "ASPNETCORE_URLS": "http://localhost:5000;https://localhost:5001"
+            }
+        },
+        {
+            "name": "Attach to Process",
+            "type": "coreclr",
+            "request": "attach"
+        },
+        {
+            "name": "Docker: Launch",
+            "type": "docker",
+            "request": "launch",
+            "preLaunchTask": "docker-build",
+            "netCore": {
+                "appProject": "${workspaceFolder}/src/MinioDotnet/MinioDotnet.csproj"
+            }
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Launch with MinIO",
+            "configurations": ["Launch MinioDotnet (Development)"],
+            "preLaunchTask": "start-minio",
+            "stopAll": true
+        }
+    ]
+}

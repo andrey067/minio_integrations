@@ -363,5 +363,22 @@ MigrationBackup/
 FodyWeavers.xsd
 
 
-#Minio file
+# MinIO files
 data/*
+
+# Pre-commit
+.pre-commit-cache/
+
+# Test results
+TestResults/
+test-results/
+coverage.xml
+coverage.json
+coverage.opencover.xml
+
+# Security scan results
+security-scan-results/
+
+# Temporary files
+*.tmp
+*.temp
