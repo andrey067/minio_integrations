@@ -1,237 +1,51 @@
-# MinIO Integration with .NET
+# minio_integrations
 
-Este projeto demonstra a integração do .NET com MinIO, incluindo operações de upload, download e gerenciamento de objetos em storage S3-compatible.
+Este repositório contém exemplos e experimentos de integração do **MinIO**, um sistema de armazenamento de objetos compatível com o **Amazon S3**, utilizando diferentes linguagens de programação.
 
-## 🚀 Tecnologias
+## Linguagens e Tecnologias
 
-- **.NET 9.0** - Framework principal
-- **MinIO** - Object storage S3-compatible
-- **ASP.NET Core** - Web API
-- **Swagger/OpenAPI** - Documentação da API
-- **CSharpier** - Formatação de código
-- **Pre-commit** - Hooks de qualidade de código
+- **Python** - Exemplos usando a biblioteca `minio` para Python
+- **Java** - Integração com MinIO usando o SDK oficial Java
+- **Node.js** - Exemplos práticos com o cliente MinIO para JavaScript
+- **Go** - Implementações usando o SDK MinIO para Go
+- **C#** - Integração com MinIO usando o SDK para .NET
 
-## 📋 Pré-requisitos
+## Estrutura do Repositório
 
-- [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
-- [Python 3.8+](https://www.python.org/downloads/) (para pre-commit)
-- [Docker](https://www.docker.com/) (opcional, para MinIO local)
-- [Git](https://git-scm.com/)
+Cada diretório representa uma linguagem ou framework e contém exemplos práticos e scripts comentados para facilitar o aprendizado.
 
-## 🛠️ Configuração do Ambiente
-
-### 1. Configuração Rápida
-
-```powershell
-# Clone o repositório
-git clone <repository-url>
-cd minio_integrations
-
-# Configure o ambiente de desenvolvimento
-.\build.ps1 setup-dev
+```
+minio_integrations/
+├── python/          # Exemplos em Python
+├── java/            # Exemplos em Java
+├── nodejs/          # Exemplos em Node.js
+├── go/              # Exemplos em Go
+├── csharp/          # Exemplos em C#
+└── docker-compose.yml  # Configuração do MinIO para testes locais
 ```
 
-### 2. Configuração Manual
+## Pré-requisitos
 
-```powershell
-# Instale as dependências
-.\build.ps1 install
+- MinIO Server (pode usar o docker-compose.yml incluído)
+- Dependências específicas de cada linguagem (ver README de cada diretório)
 
-# Ou manualmente:
-dotnet tool restore
-dotnet restore
-pre-commit install
-```
+## Como Usar
 
-## 🔧 Comandos Disponíveis
+1. Inicie o servidor MinIO localmente:
+   ```bash
+   docker-compose up -d
+   ```
 
-O projeto inclui um script PowerShell (`build.ps1`) com os seguintes comandos:
+2. Acesse o diretório da linguagem desejada
+3. Siga as instruções no README.md específico de cada linguagem
 
-```powershell
-# Ajuda
-.\build.ps1 help
+## MinIO Console
 
-# Configuração inicial
-.\build.ps1 setup-dev
+Após iniciar o MinIO com docker-compose, você pode acessar o console web em:
+- URL: http://localhost:9001
+- Usuário: minioadmin
+- Senha: minioadmin
 
-# Formatar código
-.\build.ps1 format
+## Contribuindo
 
-# Verificar formatação
-.\build.ps1 check
-
-# Compilar projeto
-.\build.ps1 build
-
-# Executar testes
-.\build.ps1 test
-
-# Executar pre-commit hooks
-.\build.ps1 pre-commit
-
-# Pipeline completo de CI
-.\build.ps1 ci
-```
-
-## 🎯 Pre-commit Hooks
-
-O projeto está configurado com hooks de pre-commit que executam automaticamente antes de cada commit:
-
-### Hooks Configurados
-
-1. **Restore .NET tools** - Restaura ferramentas necessárias
-2. **Format C# files** - Formata código com CSharpier
-3. **Check C# formatting** - Verifica se o código está formatado
-4. **Restore packages** - Restaura pacotes NuGet
-5. **Build solution** - Compila o projeto
-6. **Quality checks** - Verifica espaços em branco, final de linha, etc.
-7. **Security scan** - Detecta possíveis segredos no código
-
-### Executar Manualmente
-
-```powershell
-# Executar todos os hooks
-pre-commit run --all-files
-
-# Executar hook específico
-pre-commit run csharpier-format
-
-# Pular hooks temporariamente
-git commit --no-verify -m "commit message"
-```
-
-## 🏗️ Estrutura do Projeto
-
-```text
-├── src/
-│   ├── MinioDotnet/              # Projeto principal (Web API)
-│   │   ├── Program.cs
-│   │   ├── appsettings.json
-│   │   └── MinioDotnet.csproj
-│   └── MinioDotnet.Services/     # Biblioteca de serviços
-│       ├── Services/
-│       ├── Interfaces/
-│       └── MinioExtensions.cs
-├── .config/
-│   └── dotnet-tools.json         # Ferramentas .NET (CSharpier, Husky)
-├── .husky/                       # Configuração Husky.Net (legado)
-├── .pre-commit-config.yaml       # Configuração pre-commit
-├── .csharpierrc.json            # Configuração CSharpier
-├── build.ps1                    # Script de automação
-├── Makefile                     # Makefile para ambientes Unix
-└── docker-compose.yml           # MinIO local
-```
-
-## 🐳 MinIO Local
-
-Para desenvolvimento local, use Docker Compose:
-
-```powershell
-# Iniciar MinIO
-docker-compose up -d
-
-# MinIO Console: http://localhost:9001
-# Usuário: minioadmin
-# Senha: minioadmin
-```
-
-## 🧪 Testes
-
-```powershell
-# Executar todos os testes
-.\build.ps1 test
-
-# Ou diretamente com dotnet
-dotnet test --configuration Release --verbosity normal
-```
-
-## 📚 API Documentation
-
-Com o projeto em execução, acesse:
-
-- **Swagger UI**: <http://localhost:5000/swagger>
-- **ReDoc**: <http://localhost:5000/redoc>
-
-## 🔄 Workflow de Desenvolvimento
-
-```mermaid
-graph LR
-    A[Código] --> B[Pre-commit Hooks]
-    B --> C[Format Check]
-    B --> D[Build]
-    B --> E[Tests]
-    C --> F[Commit]
-    D --> F
-    E --> F
-    F --> G[Push]
-```
-
-1. **Escreva o código**
-2. **Stage as mudanças**: `git add .`
-3. **Commit**: `git commit -m "message"`
-   - Os hooks executam automaticamente
-   - Formata o código
-   - Verifica compilação
-   - Executa testes
-4. **Push**: `git push`
-
-## 🚨 Solução de Problemas
-
-### Pre-commit falhando
-
-```powershell
-# Reinstalar hooks
-pre-commit uninstall
-pre-commit install
-
-# Atualizar hooks
-pre-commit autoupdate
-
-# Limpar cache
-pre-commit clean
-```
-
-### Formatação CSharpier
-
-```powershell
-# Formatar manualmente
-dotnet csharpier format .
-
-# Verificar formatação
-dotnet csharpier check .
-```
-
-### Build falhando
-
-```powershell
-# Limpar e reconstruir
-.\build.ps1 clean
-.\build.ps1 restore
-.\build.ps1 build
-```
-
-## 📄 Configuração do CSharpier
-
-A formatação segue as configurações em `.csharpierrc.json`:
-
-```json
-{
-  "printWidth": 100,
-  "useTabs": false,
-  "tabWidth": 4,
-  "endOfLine": "crlf"
-}
-```
-
-## 🤝 Contribuindo
-
-1. Fork o projeto
-2. Crie uma branch: `git checkout -b feature/nova-feature`
-3. Faça as mudanças (os hooks garantem a qualidade)
-4. Commit: `git commit -m "Add nova feature"`
-5. Push: `git push origin feature/nova-feature`
-6. Abra um Pull Request
-
-## 📝 License
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.txt) para mais detalhes.
+Sinta-se à vontade para contribuir com novos exemplos ou melhorias nos existentes.

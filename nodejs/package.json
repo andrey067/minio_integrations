@@ -1,0 +1,22 @@
+{
+  "name": "minio-nodejs-examples",
+  "version": "1.0.0",
+  "description": "Exemplos de integração MinIO com Node.js",
+  "main": "basicOperations.js",
+  "scripts": {
+    "basic": "node basicOperations.js",
+    "advanced": "node advancedOperations.js",
+    "stream": "node streamOperations.js"
+  },
+  "keywords": [
+    "minio",
+    "s3",
+    "object-storage",
+    "nodejs"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "minio": "^7.1.3"
+  }
+}
