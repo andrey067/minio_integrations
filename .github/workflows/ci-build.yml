@@ -1,0 +1,92 @@
+name: CI Build
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  build-dotnet:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project:
+          - csharp/MinioDotnet/MinioDotnet.csproj
+          - csharp/MinioDotnet.Services/MinioDotnet.Services.csproj
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore
+        run: dotnet restore ${{ matrix.project }}
+
+      - name: Build
+        run: dotnet build ${{ matrix.project }} --configuration Release --no-restore
+
+  build-java:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project:
+          - path: java/MinioJava
+            pom: java/MinioJava/pom.xml
+          - path: java/MinioJava.Services
+            pom: java/MinioJava.Services/pom.xml
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build with Maven
+        run: mvn -f ${{ matrix.project.pom }} clean package -DskipTests
+
+  build-go:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project:
+          - go/MinioGo
+          - go/MinioGo.Services
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      - name: Build
+        working-directory: ${{ matrix.project }}
+        run: go build -v ./...
+
+  build-nodejs:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project:
+          - nodejs/MinioNodejs
+          - nodejs/MinioNodejs.Services
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: ${{ matrix.project }}
+        run: npm ci
+
+      - name: Build
+        working-directory: ${{ matrix.project }}
+        run: npm run build
