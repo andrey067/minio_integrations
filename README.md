@@ -1,51 +1,61 @@
 # minio_integrations
 
-Este repositório contém exemplos e experimentos de integração do **MinIO**, um sistema de armazenamento de objetos compatível com o **Amazon S3**, utilizando diferentes linguagens de programação.
+Repositório de integrações com **MinIO** — sistema de armazenamento de objetos compatível com **Amazon S3** — implementadas em múltiplas linguagens de programação.
 
-## Linguagens e Tecnologias
+Cada linguagem possui sua própria implementação completa com camada de serviços (interface + implementação), API HTTP e configuração de pre-commit.
 
-- **Python** - Exemplos usando a biblioteca `minio` para Python
-- **Java** - Integração com MinIO usando o SDK oficial Java
-- **Node.js** - Exemplos práticos com o cliente MinIO para JavaScript
-- **Go** - Implementações usando o SDK MinIO para Go
-- **C#** - Integração com MinIO usando o SDK para .NET
+## Linguagens
+
+| Linguagem | Framework | Pasta |
+|-----------|-----------|-------|
+| C# (.NET 9) | ASP.NET Core | [`csharp/`](csharp/) |
+| Go 1.23 | net/http | [`go/`](go/) |
+| Java 21 | Spring Boot | [`java/`](java/) |
+| Node.js 18 (TypeScript) | Express | [`nodejs/`](nodejs/) |
+| Python 3.12 | FastAPI | [`python/`](python/) |
 
 ## Estrutura do Repositório
 
-Cada diretório representa uma linguagem ou framework e contém exemplos práticos e scripts comentados para facilitar o aprendizado.
+Cada pasta de linguagem segue o mesmo padrão:
 
 ```
-minio_integrations/
-├── python/          # Exemplos em Python
-├── java/            # Exemplos em Java
-├── nodejs/          # Exemplos em Node.js
-├── go/              # Exemplos em Go
-├── csharp/          # Exemplos em C#
-└── docker-compose.yml  # Configuração do MinIO para testes locais
+<lang>/
+├── <App>/                  # Aplicação (API HTTP)
+├── <App>.Services/         # Camada de serviços
+│   ├── interfaces/         # Interface IMinioService
+│   └── services/           # Implementação MinioService
+├── .husky/
+│   └── pre-commit          # Hook de build no commit
+└── README.md
 ```
 
 ## Pré-requisitos
 
-- MinIO Server (pode usar o docker-compose.yml incluído)
-- Dependências específicas de cada linguagem (ver README de cada diretório)
+- Docker (para rodar o MinIO localmente)
+- Dependências específicas de cada linguagem (ver README de cada pasta)
 
-## Como Usar
+## Iniciar o MinIO
 
-1. Inicie o servidor MinIO localmente:
-   ```bash
-   docker-compose up -d
-   ```
+```bash
+docker-compose up -d
+```
 
-2. Acesse o diretório da linguagem desejada
-3. Siga as instruções no README.md específico de cada linguagem
-
-## MinIO Console
-
-Após iniciar o MinIO com docker-compose, você pode acessar o console web em:
+Após iniciar, acesse o console web:
 - URL: http://localhost:9001
-- Usuário: minioadmin
-- Senha: minioadmin
+- Usuário: `minioadmin`
+- Senha: `minioadmin`
+
+## Pre-commit Hooks
+
+O repositório usa [Husky.Net](https://alirezanet.github.io/Husky.Net/) para executar builds no pre-commit. Cada linguagem tem seu próprio script em `.husky/pre-commit`, ativado automaticamente quando arquivos da respectiva linguagem são alterados.
+
+Para instalar os hooks:
+
+```bash
+dotnet tool restore
+dotnet husky install
+```
 
 ## Contribuindo
 
-Sinta-se à vontade para contribuir com novos exemplos ou melhorias nos existentes.
+Consulte o README de cada linguagem para instruções específicas de build e execução.

@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+
+REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+
+echo "▶ [nodejs] Building MinioNodejs.Services..."
+cd "$REPO_ROOT/nodejs/MinioNodejs.Services"
+npm install --silent
+npm run build:check
+
+echo "▶ [nodejs] Building MinioNodejs..."
+cd "$REPO_ROOT/nodejs/MinioNodejs"
+npm install --silent
+npm run build:check
+
+echo "✓ [nodejs] Build passed"

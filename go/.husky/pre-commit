@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+
+REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+
+echo "▶ [go] Building MinioGo.Services..."
+cd "$REPO_ROOT/go/MinioGo.Services"
+go build ./...
+
+echo "▶ [go] Building MinioGo..."
+cd "$REPO_ROOT/go/MinioGo"
+go build ./...
+
+echo "✓ [go] Build passed"

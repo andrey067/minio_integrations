@@ -73,3 +73,8 @@ obj/
 
 # MinIO data
 minio-data/
+
+# Build caches
+NuGetScratch/
+node-compile-cache/
+logs/

@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e
+
+REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+
+echo "▶ [csharp] Building..."
+cd "$REPO_ROOT/csharp"
+dotnet build MinioDotnet.sln --configuration Release
+echo "✓ [csharp] Build passed"

@@ -1,82 +1,84 @@
-# MinIO Integration - C#
+# MinIO Integration - C# (.NET)
 
-Este diretório contém exemplos de integração com MinIO usando C# (.NET).
-
-## Pré-requisitos
-
-- .NET 6.0 ou superior
-- dotnet CLI
-
-## Instalação
-
-Restaure as dependências:
-
-```bash
-dotnet restore
-```
-
-## Configuração
-
-Certifique-se de que o MinIO está rodando:
-
-```bash
-cd ..
-docker-compose up -d
-```
-
-## Exemplos Disponíveis
-
-### 1. BasicOperations.cs
-Operações básicas:
-- Criar bucket
-- Upload de arquivo
-- Download de arquivo
-- Listar objetos
-- Deletar objeto
-
-```bash
-dotnet run --project BasicOperations
-```
-
-### 2. AdvancedOperations.cs
-Operações avançadas:
-- Upload com metadados
-- Presigned URLs
-- Gestão de buckets
-- Políticas de acesso
-
-```bash
-dotnet run --project AdvancedOperations
-```
-
-## Compilação
-
-Para compilar os exemplos:
-
-```bash
-dotnet build
-```
+Integração com MinIO usando o SDK oficial para .NET 9, estruturada como uma Web API com camada de serviços.
 
 ## Estrutura do Projeto
 
 ```
 csharp/
-├── MinioExamples.sln
-├── BasicOperations/
-│   ├── BasicOperations.csproj
-│   └── Program.cs
-└── AdvancedOperations/
-    ├── AdvancedOperations.csproj
-    └── Program.cs
+├── MinioDotnet.sln
+├── MinioDotnet/               # Web API (ASP.NET Core)
+│   ├── MinioDotnet.csproj
+│   ├── Program.cs
+│   ├── appsettings.json
+│   └── Properties/
+│       └── launchSettings.json
+├── MinioDotnet.Services/      # Camada de serviços
+│   ├── MinioDotnet.Services.csproj
+│   ├── MinioExtensions.cs     # Extensão para registro de DI
+│   ├── Interfaces/
+│   │   └── IMinioServices.cs  # Interface do serviço
+│   └── Services/
+│       └── MinioServices.cs   # Implementação
+└── .husky/
+    ├── pre-commit             # Build no pre-commit (bash)
+    └── pre-commit.ps1         # Build no pre-commit (PowerShell)
 ```
 
-## Configuração de Credenciais
+## Pré-requisitos
 
-Os exemplos usam:
-- Endpoint: `localhost:9000`
-- Access Key: `minioadmin`
-- Secret Key: `minioadmin`
+- .NET 9 SDK
+- MinIO Server (use o `docker-compose.yml` na raiz do repositório)
+
+## Instalação
+
+```bash
+cd csharp
+dotnet restore
+```
+
+## Configuração
+
+Edite `MinioDotnet/appsettings.json`:
+
+```json
+{
+  "Minio": {
+    "Endpoint": "localhost",
+    "Port": 9000,
+    "AccessKey": "minioadmin",
+    "SecretKey": "minioadmin"
+  }
+}
+```
+
+## Build
+
+```bash
+cd csharp
+dotnet build MinioDotnet.sln --configuration Release
+```
+
+## Executar a API
+
+```bash
+cd csharp/MinioDotnet
+dotnet run
+```
+
+Acesse a documentação Swagger em: `http://localhost:5000/swagger`
+
+## Endpoints
+
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| POST | `/create-bucket` | Cria um bucket |
+| GET | `/list-buckets` | Lista todos os buckets |
+| DELETE | `/delete-bucket/{name}` | Remove um bucket |
+| POST | `/upload?bucketName=...` | Faz upload de arquivo |
+| GET | `/download/{bucket}/{file}` | Faz download de arquivo |
 
 ## Documentação
 
 - [MinIO .NET SDK](https://min.io/docs/minio/linux/developers/dotnet/minio-dotnet.html)
+- [ASP.NET Core](https://docs.microsoft.com/aspnet/core)

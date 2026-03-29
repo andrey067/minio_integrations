@@ -1,0 +1,24 @@
+{
+  "name": "minio-nodejs",
+  "version": "1.0.0",
+  "description": "API MinIO para Node.js com Express",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "build:check": "tsc --noEmit",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "minio-nodejs-services": "file:../MinioNodejs.Services",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "@types/node": "^20.12.7",
+    "@types/express": "^4.17.21",
+    "@types/multer": "^1.4.11",
+    "ts-node": "^10.9.2"
+  }
+}

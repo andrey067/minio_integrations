@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+
+REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+
+echo "▶ [java] Installing MinioJava.Services..."
+cd "$REPO_ROOT/java/MinioJava.Services"
+mvn install -DskipTests -q
+
+echo "▶ [java] Building MinioJava..."
+cd "$REPO_ROOT/java/MinioJava"
+mvn package -DskipTests -q
+
+echo "✓ [java] Build passed"

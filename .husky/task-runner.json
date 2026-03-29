@@ -2,36 +2,42 @@
    "$schema": "https://alirezanet.github.io/Husky.Net/schema.json",
    "tasks": [
       {
-         "name": "format-and-check",
+         "name": "pre-commit-csharp",
          "command": "bash",
-         "args": [ "-c", "dotnet tool run csharpier format . && dotnet tool run csharpier check ." ],
+         "args": [ "csharp/.husky/pre-commit" ],
          "windows": {
             "command": "powershell",
-            "args": [ "-ExecutionPolicy", "Bypass", "-Command", "dotnet tool run csharpier format .; if ($LASTEXITCODE -eq 0) { dotnet tool run csharpier check . }" ]
+            "args": [ "-ExecutionPolicy", "Bypass", "-File", "csharp/.husky/pre-commit.ps1" ]
          },
-         "include": [ "**/*.cs" ]
+         "include": [ "csharp/**/*.cs", "csharp/**/*.csproj", "csharp/**/*.sln" ]
       },
       {
-         "name": "pre-commit",
+         "name": "pre-commit-go",
          "command": "bash",
-         "args": [ ".husky/pre-commit-script" ],
+         "args": [ "go/.husky/pre-commit" ],
+         "include": [ "go/**/*.go", "go/**/go.mod" ]
+      },
+      {
+         "name": "pre-commit-java",
+         "command": "bash",
+         "args": [ "java/.husky/pre-commit" ],
+         "include": [ "java/**/*.java", "java/**/pom.xml" ]
+      },
+      {
+         "name": "pre-commit-nodejs",
+         "command": "bash",
+         "args": [ "nodejs/.husky/pre-commit" ],
          "windows": {
             "command": "powershell",
-            "args": [ "-ExecutionPolicy", "Bypass", "-File", ".husky/pre-commit.ps1" ]
+            "args": [ "-ExecutionPolicy", "Bypass", "-File", "nodejs/.husky/pre-commit.ps1" ]
          },
-         "include": [ "**/*.cs", "**/*.csproj", "**/*.sln" ]
+         "include": [ "nodejs/**/*.ts", "nodejs/**/package.json", "nodejs/**/tsconfig.json" ]
       },
       {
-         "name": "restore-tools",
-         "command": "dotnet",
-         "args": [ "tool", "restore" ],
-         "include": [ "**/*.cs", "**/*.csproj", "**/*.sln" ]
-      },
-      {
-         "name": "build-solution",
-         "command": "dotnet",
-         "args": [ "build", "--configuration", "Release", "--no-restore" ],
-         "include": [ "**/*.cs", "**/*.csproj", "**/*.sln" ]
+         "name": "pre-commit-python",
+         "command": "bash",
+         "args": [ "python/.husky/pre-commit" ],
+         "include": [ "python/**/*.py" ]
       }
    ]
 }
