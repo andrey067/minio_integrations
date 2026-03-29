@@ -1,0 +1,37 @@
+{
+   "$schema": "https://alirezanet.github.io/Husky.Net/schema.json",
+   "tasks": [
+      {
+         "name": "format-and-check",
+         "command": "bash",
+         "args": [ "-c", "dotnet tool run csharpier format . && dotnet tool run csharpier check ." ],
+         "windows": {
+            "command": "powershell",
+            "args": [ "-ExecutionPolicy", "Bypass", "-Command", "dotnet tool run csharpier format .; if ($LASTEXITCODE -eq 0) { dotnet tool run csharpier check . }" ]
+         },
+         "include": [ "**/*.cs" ]
+      },
+      {
+         "name": "pre-commit",
+         "command": "bash",
+         "args": [ ".husky/pre-commit-script" ],
+         "windows": {
+            "command": "powershell",
+            "args": [ "-ExecutionPolicy", "Bypass", "-File", ".husky/pre-commit.ps1" ]
+         },
+         "include": [ "**/*.cs", "**/*.csproj", "**/*.sln" ]
+      },
+      {
+         "name": "restore-tools",
+         "command": "dotnet",
+         "args": [ "tool", "restore" ],
+         "include": [ "**/*.cs", "**/*.csproj", "**/*.sln" ]
+      },
+      {
+         "name": "build-solution",
+         "command": "dotnet",
+         "args": [ "build", "--configuration", "Release", "--no-restore" ],
+         "include": [ "**/*.cs", "**/*.csproj", "**/*.sln" ]
+      }
+   ]
+}

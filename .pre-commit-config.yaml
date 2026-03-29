@@ -1,0 +1,74 @@
+repos:
+  # Hooks para formatação e verificação de C#
+  - repo: local
+    hooks:
+      # Restore dotnet tools
+      - id: dotnet-tool-restore
+        name: Restore .NET tools
+        entry: dotnet tool restore
+        language: system
+        files: \.config/dotnet-tools\.json$
+        pass_filenames: false
+
+      # Formato C# usando CSharpier
+      - id: csharpier-format
+        name: Format C# files with CSharpier
+        entry: dotnet csharpier
+        language: system
+        files: \.cs$
+        args: ["format", "."]
+        pass_filenames: false
+
+      # Verificação de formatação C#
+      - id: csharpier-check
+        name: Check C# formatting with CSharpier
+        entry: dotnet csharpier
+        language: system
+        files: \.cs$
+        args: ["check", "."]
+        pass_filenames: false
+
+      # Restore packages do .NET
+      - id: dotnet-restore
+        name: Restore .NET packages
+        entry: dotnet restore
+        language: system
+        files: \.(cs|csproj|sln)$
+        pass_filenames: false
+
+      # Build da solution
+      - id: dotnet-build
+        name: Build .NET solution
+        entry: dotnet build
+        language: system
+        args: ["--configuration", "Release", "--no-restore"]
+        files: \.(cs|csproj|sln)$
+        pass_filenames: false
+
+  # Hooks gerais para qualidade de código
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: \.md$
+      - id: end-of-file-fixer
+        exclude: \.md$
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-yaml
+      - id: check-json
+      - id: check-xml
+      - id: mixed-line-ending
+        args: ["--fix=crlf"]
+
+  # Hook para verificar arquivos grandes
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        args: ["--baseline", ".secrets.baseline"]
+        exclude: \.lock$|\.log$|\.dll$|\.exe$|\.pdb$
+
+# Configurações globais
+default_stages: [pre-commit]
+fail_fast: false

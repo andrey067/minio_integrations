@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A295EB36-54E0-4AB9-88BD-F918BA985433}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinioDotnet", "src\MinioDotnet\MinioDotnet.csproj", "{68807E75-A843-41F8-A571-E2D1FA4C2CDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinioDotnet.Services", "src\MinioDotnet.Services\MinioDotnet.Services.csproj", "{079777E4-4705-4595-835D-2AAD5D817D86}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68807E75-A843-41F8-A571-E2D1FA4C2CDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68807E75-A843-41F8-A571-E2D1FA4C2CDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68807E75-A843-41F8-A571-E2D1FA4C2CDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68807E75-A843-41F8-A571-E2D1FA4C2CDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{079777E4-4705-4595-835D-2AAD5D817D86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{079777E4-4705-4595-835D-2AAD5D817D86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{079777E4-4705-4595-835D-2AAD5D817D86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{079777E4-4705-4595-835D-2AAD5D817D86}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{68807E75-A843-41F8-A571-E2D1FA4C2CDB} = {A295EB36-54E0-4AB9-88BD-F918BA985433}
+		{079777E4-4705-4595-835D-2AAD5D817D86} = {A295EB36-54E0-4AB9-88BD-F918BA985433}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4F5FF581-0281-4E18-9176-46D18D58AF25}
+	EndGlobalSection
+EndGlobal
